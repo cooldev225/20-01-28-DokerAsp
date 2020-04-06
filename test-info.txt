@@ -1,0 +1,42 @@
+Hi
+Are you hire? yesy
+I had just run docker project
+this project is weather forecast api simple one
+
+
+i also deployed this project to dockerhub
+
+This is a deployed screen in docker.
+
+
+Could you test your self?
+
+yes. Can you provide the code please so I can repeat the test on our system? Or to get it from dockerhub, doo I need any access code?
+
+
+Sure, I believe you , so, I can share all.
+
+And tell me what should i work more..
+
+I will let you know dockerhub access.
+
+https://hub.docker.com/r/developer225/dockerapp?utm_source=docker4win_2.2.0.0&utm_medium=repo_open&utm_campaign=referral
+
+dockerID: developer225
+pass: tempP@ss123
+
+You can access to dockerhub with this.
+and you can 
+
+
+you will login docker reposisteries and then you can run below command.
+docker run -it --rm -p 8000:80 --name aspnetcore_sample developer225/dockerapp
+
+Do you understand all?
+yes. I will also need the .net source code please. CCopying and pasting your instructions from this page.
+
+If all steps is correct, you can release , and then i can send all source, is okay?
+I think you can test with onl
+ Are you here now?provide a short documentzs
+Yes
+Are you here now?

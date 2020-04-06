@@ -1,0 +1,132 @@
+version: '3.7'
+services:
+  es01:
+    image: 'docker.elastic.co/elasticsearch/elasticsearch:7.5.2'
+    container_name: es01
+    environment:
+      - node.name=es01
+      - cluster.name=es-docker-cluster
+      - discovery.type=single-node
+      - discovery.seed_hosts=es01
+      - bootstrap.memory_lock=true
+      - ES_JAVA_OPTS=-Xms512m -Xmx512m
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    volumes:
+      - './data/es01:/usr/share/elasticsearch/data'
+    ports:
+      - '9200:9200'
+    networks:
+      - elastic
+#  messagewebapi:
+#    build: messagewebapi
+#    container_name: messagewebapi 
+#    volumes:
+#        - '/c/data:/data'
+#    ports:
+#      - '5000:5000'
+  kib01:
+    image: 'docker.elastic.co/kibana/kibana:7.5.2'
+    container_name: kib01
+    ports:
+      - '5601:5601'
+    environment:
+      ELASTICSEARCH_URL: 'http://es01:9200'
+      ELASTICSEARCH_HOSTS: 'http://es01:9200'
+    depends_on:
+      - es01
+    networks:
+      - elastic
+#  ab01:
+#    container_name: ab01
+#    hostname: ab01
+#    user: root #To read the docker socket
+#    image: "docker.elastic.co/beats/auditbeat:7.5.2"
+#    volumes:
+#      #Mount the Auditbeat configuration so users can make edits.
+#      - ./auditbeat/conf/auditbeat.yml:/usr/share/auditbeat/auditbeat.yml
+#      #Allows us to report on docker from the hosts information.
+#      - /var/run/docker.sock:/var/run/docker.sock
+#    depends_on:
+#      - es01
+#    command: auditbeat -e -strict.perms=false
+#    #pid: "ab01" # Set the required permissions with pid and cap_add for Auditbeat
+#    #cap_add: ['AUDIT_CONTROL', 'AUDIT_READ']
+#    networks:
+#      - elastic
+  fb01:
+    build: filebeat/docker
+    container_name: fb01
+    environment:
+      KAFKA_HOSTNAME: 'kfk01:9093'
+    command: filebeat -e -strict.perms=false
+    depends_on:
+      - kfk01
+    volumes:
+      - './filebeat/conf/filebeat.yml:/usr/share/filebeat/filebeat.yml'
+      - './filebeat/log/:/usr/share/filebeat/logs'
+      - '/c/data/\HL7Inbound\FilebeatInbound:/usr/share/filebeat/filedrop'
+    networks:
+      - elastic
+  zk01:
+    image: wurstmeister/zookeeper
+    container_name: zk01
+    ports:
+      - '2181:2181'
+    networks:
+      - elastic
+  kfk01:
+    image: wurstmeister/kafka
+    container_name: kfk01
+    depends_on:
+      - zk01
+    ports:
+      - '9092:9092'
+    expose:
+      - '9093'
+    environment:
+      KAFKA_BROKER_ID: 1
+      KAFKA_ZOOKEEPER_CONNECT: 'zk01:2181'
+      KAFKA_ADVERTISED_HOST_NAME: localhost
+      KAFKA_ADVERTISED_LISTENERS: 'INSIDE://kfk01:9093,OUTSIDE://localhost:9092'
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: 'INSIDE:PLAINTEXT,OUTSIDE:PLAINTEXT'
+      KAFKA_LISTENERS: 'INSIDE://0.0.0.0:9093,OUTSIDE://0.0.0.0:9092'
+      KAFKA_INTER_BROKER_LISTENER_NAME: INSIDE
+    volumes:
+      - '/var/run/docker.sock:/var/run/docker.sock'
+    networks:
+      - elastic
+  ext01:
+    container_name: ext01
+    build: extractor/docker
+    depends_on:
+      - kfk01    
+    volumes:
+        - '/c/data:/data'
+    networks:
+      - elastic
+  log01:
+    build: logstash/docker
+    container_name: log01
+    depends_on:
+      - es01
+      - kfk01
+    environment:
+      KAFKA_HOSTNAME: 'kfk01:9093'
+      ELASTIC_HOSTNAME: 'http://es01:9200'
+    volumes:
+      - './logstash/conf:/usr/share/logstash/pipeline/'
+      - './logstash/log:/usr/share/logstash/logs/'
+    ports:
+      - '5000:5000'
+      - '9600:9600'
+    networks:
+      - elastic      
+volumes:
+  data01:
+    driver: local
+networks:
+  elastic:
+    driver: bridge

@@ -1,0 +1,63 @@
+Hello Anca, thank you for your reply. I do not see in your experiences the technologies we listed: which is .net core web app running in a Docker Linux container.
+hi
+Thank you for your reply
+
+test.txt
+I'm ASP.NET CORE sensor developer
+I can show many my samples
+and video too
+Could we discuss more ?
+C
+great! the area we need help in is specifically .net webapi in docker/linux containers. Have you done work in this area?
+Sure, I am familiar for the area
+So, what should I worked in the area?
+There is installed already Docker and LinuxKit in my pc
+Could you check this file?
+
+test.txt
+Could we discuss more?
+C
+We basically need a HelloWorld simple webapi, running in Docker Linux container, with a single controller method that responds too an HTTP Post, and returnes a simple string. We need to deploy it in a docker-compose
+I see, NP
+I think only I can help you now
+Please ping me
+The Administrator removed this message for breaching our Terms of Service
+ok trying to connect via the info in the text file
+The Administrator removed this message for breaching our Terms of Service
+unable to connect with the medium you specified in the text file. Can we chat in this channel instead?
+C
+would you have additional questions on what we are trying to achieve?
+I hope you don't violate policy of freelancer.com
+Yes, I have some questions
+C
+it is blocking me every time I used the word sk... so we certainly do not want to violate policies.
+Okay
+We can communicate in heree
+So, Could I ask for your description?
+C
+my description? do you mean my job description/title/role?
+I mean your project's detail
+So, do you want only "Hello world" basic source ?
+ah ok. The project consists of creating a simple .net core 3.0 webapp in c#, that is containerized in Docker Linux container. It would have a single Controller, with a single HelloWorld HTTP-POST method, that receives a string as a parameter and returns it. We need to deploy this container via Docker-Compose.yml and be able to make a test http call to the webapi that is inside teh container.
+C
+our development environment is Windows 10 pro or enterpsie, docker for windows running as linux containers, and visual studio 2019
+Yes
+I got you
+
+Untitled.png
+Untitled.png
+I can start as soon
+C
+the deliverable would be the .net code, the dockerfile and docker-compose files, and a short/concise (no more that one page) instructions on how to call teh webapi container. We know how to run docker-compose
+your evirenment is same mine
+
+great! If you could please give it some thought, and let me know your estimated hour range.
+
+As you know, I had bid hourly 12$.
+if you are asking what I think the estimated effort is, I believe for an experienced .NET/Docker developer, this is about 2-5 hours of work total, because it is only a proof of concept. But I do not want to impose constraints on you. So if you give me your estimate I will take it to my team for approval, and get back to you by Friday with their decision. There are more small projects like this along the way. We will need help on ElasticSearch containerization as well after this extercise.
+
+Thank you for the estimate, I think it is reasonable, I will seek an OK from my team as soon as possible before friday. Also will create Milestones and fund them in Freelancer
+
+have you done other similar projects before or is this going to be research/discovery type of work? if research, then I think we may need more than 10 hours.
+
+no please wait until I get back to you with the authorization from my team. Initially I was thinking Friday, but I will try to get it in the next few hours.
